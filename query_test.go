@@ -7,7 +7,7 @@ import (
 )
 
 func TestParseQuery(t *testing.T) {
-	queryString := query.NewQueryStringQuery("key word test:fuck date:>=20190618 date:<20190625")
+	queryString := query.NewQueryStringQuery("key word ping:echo date:>=20190618 date:<20190625")
 	q, err := queryString.Parse()
 	if err != nil {
 		t.Fatal(err)
