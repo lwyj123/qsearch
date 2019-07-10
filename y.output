@@ -1,0 +1,275 @@
+
+state 0
+	$accept: .input $end 
+	searchPrefix: .    (5)
+
+	tPLUS  shift 5
+	tMINUS  shift 6
+	.  reduce 5 (src line 61)
+
+	searchPrefix  goto 4
+	input  goto 1
+	searchParts  goto 2
+	searchPart  goto 3
+
+state 1
+	$accept:  input.$end 
+
+	$end  accept
+	.  error
+
+
+state 2
+	input:  searchParts.    (1)
+
+	.  reduce 1 (src line 33)
+
+
+state 3
+	searchParts:  searchPart.searchParts 
+	searchParts:  searchPart.    (3)
+	searchPrefix: .    (5)
+
+	$end  reduce 3 (src line 42)
+	tPLUS  shift 5
+	tMINUS  shift 6
+	.  reduce 5 (src line 61)
+
+	searchPrefix  goto 4
+	searchParts  goto 7
+	searchPart  goto 3
+
+state 4
+	searchPart:  searchPrefix.searchBase 
+
+	tSTRING  shift 9
+	tPHRASE  shift 11
+	tNUMBER  shift 10
+	.  error
+
+	searchBase  goto 8
+
+state 5
+	searchPrefix:  tPLUS.    (6)
+
+	.  reduce 6 (src line 65)
+
+
+state 6
+	searchPrefix:  tMINUS.    (7)
+
+	.  reduce 7 (src line 70)
+
+
+state 7
+	searchParts:  searchPart searchParts.    (2)
+
+	.  reduce 2 (src line 38)
+
+
+state 8
+	searchPart:  searchPrefix searchBase.    (4)
+
+	.  reduce 4 (src line 47)
+
+
+state 9
+	searchBase:  tSTRING.    (8)
+	searchBase:  tSTRING.tCOLON tSTRING 
+	searchBase:  tSTRING.tCOLON posOrNegNumber 
+	searchBase:  tSTRING.tCOLON tPHRASE 
+	searchBase:  tSTRING.tCOLON tGREATER posOrNegNumber 
+	searchBase:  tSTRING.tCOLON tGREATER tEQUAL posOrNegNumber 
+	searchBase:  tSTRING.tCOLON tLESS posOrNegNumber 
+	searchBase:  tSTRING.tCOLON tLESS tEQUAL posOrNegNumber 
+	searchBase:  tSTRING.tCOLON tGREATER tPHRASE 
+	searchBase:  tSTRING.tCOLON tGREATER tEQUAL tPHRASE 
+	searchBase:  tSTRING.tCOLON tLESS tPHRASE 
+	searchBase:  tSTRING.tCOLON tLESS tEQUAL tPHRASE 
+
+	tCOLON  shift 12
+	.  reduce 8 (src line 76)
+
+
+state 10
+	searchBase:  tNUMBER.    (9)
+
+	.  reduce 9 (src line 90)
+
+
+state 11
+	searchBase:  tPHRASE.    (10)
+
+	.  reduce 10 (src line 97)
+
+
+state 12
+	searchBase:  tSTRING tCOLON.tSTRING 
+	searchBase:  tSTRING tCOLON.posOrNegNumber 
+	searchBase:  tSTRING tCOLON.tPHRASE 
+	searchBase:  tSTRING tCOLON.tGREATER posOrNegNumber 
+	searchBase:  tSTRING tCOLON.tGREATER tEQUAL posOrNegNumber 
+	searchBase:  tSTRING tCOLON.tLESS posOrNegNumber 
+	searchBase:  tSTRING tCOLON.tLESS tEQUAL posOrNegNumber 
+	searchBase:  tSTRING tCOLON.tGREATER tPHRASE 
+	searchBase:  tSTRING tCOLON.tGREATER tEQUAL tPHRASE 
+	searchBase:  tSTRING tCOLON.tLESS tPHRASE 
+	searchBase:  tSTRING tCOLON.tLESS tEQUAL tPHRASE 
+
+	tSTRING  shift 13
+	tPHRASE  shift 15
+	tMINUS  shift 19
+	tNUMBER  shift 18
+	tGREATER  shift 16
+	tLESS  shift 17
+	.  error
+
+	posOrNegNumber  goto 14
+
+state 13
+	searchBase:  tSTRING tCOLON tSTRING.    (11)
+
+	.  reduce 11 (src line 104)
+
+
+state 14
+	searchBase:  tSTRING tCOLON posOrNegNumber.    (12)
+
+	.  reduce 12 (src line 120)
+
+
+state 15
+	searchBase:  tSTRING tCOLON tPHRASE.    (13)
+
+	.  reduce 13 (src line 129)
+
+
+state 16
+	searchBase:  tSTRING tCOLON tGREATER.posOrNegNumber 
+	searchBase:  tSTRING tCOLON tGREATER.tEQUAL posOrNegNumber 
+	searchBase:  tSTRING tCOLON tGREATER.tPHRASE 
+	searchBase:  tSTRING tCOLON tGREATER.tEQUAL tPHRASE 
+
+	tPHRASE  shift 22
+	tMINUS  shift 19
+	tNUMBER  shift 18
+	tEQUAL  shift 21
+	.  error
+
+	posOrNegNumber  goto 20
+
+state 17
+	searchBase:  tSTRING tCOLON tLESS.posOrNegNumber 
+	searchBase:  tSTRING tCOLON tLESS.tEQUAL posOrNegNumber 
+	searchBase:  tSTRING tCOLON tLESS.tPHRASE 
+	searchBase:  tSTRING tCOLON tLESS.tEQUAL tPHRASE 
+
+	tPHRASE  shift 25
+	tMINUS  shift 19
+	tNUMBER  shift 18
+	tEQUAL  shift 24
+	.  error
+
+	posOrNegNumber  goto 23
+
+state 18
+	posOrNegNumber:  tNUMBER.    (22)
+
+	.  reduce 22 (src line 251)
+
+
+state 19
+	posOrNegNumber:  tMINUS.tNUMBER 
+
+	tNUMBER  shift 26
+	.  error
+
+
+state 20
+	searchBase:  tSTRING tCOLON tGREATER posOrNegNumber.    (14)
+
+	.  reduce 14 (src line 138)
+
+
+state 21
+	searchBase:  tSTRING tCOLON tGREATER tEQUAL.posOrNegNumber 
+	searchBase:  tSTRING tCOLON tGREATER tEQUAL.tPHRASE 
+
+	tPHRASE  shift 28
+	tMINUS  shift 19
+	tNUMBER  shift 18
+	.  error
+
+	posOrNegNumber  goto 27
+
+state 22
+	searchBase:  tSTRING tCOLON tGREATER tPHRASE.    (18)
+
+	.  reduce 18 (src line 190)
+
+
+state 23
+	searchBase:  tSTRING tCOLON tLESS posOrNegNumber.    (16)
+
+	.  reduce 16 (src line 164)
+
+
+state 24
+	searchBase:  tSTRING tCOLON tLESS tEQUAL.posOrNegNumber 
+	searchBase:  tSTRING tCOLON tLESS tEQUAL.tPHRASE 
+
+	tPHRASE  shift 30
+	tMINUS  shift 19
+	tNUMBER  shift 18
+	.  error
+
+	posOrNegNumber  goto 29
+
+state 25
+	searchBase:  tSTRING tCOLON tLESS tPHRASE.    (20)
+
+	.  reduce 20 (src line 220)
+
+
+state 26
+	posOrNegNumber:  tMINUS tNUMBER.    (23)
+
+	.  reduce 23 (src line 255)
+
+
+state 27
+	searchBase:  tSTRING tCOLON tGREATER tEQUAL posOrNegNumber.    (15)
+
+	.  reduce 15 (src line 151)
+
+
+state 28
+	searchBase:  tSTRING tCOLON tGREATER tEQUAL tPHRASE.    (19)
+
+	.  reduce 19 (src line 205)
+
+
+state 29
+	searchBase:  tSTRING tCOLON tLESS tEQUAL posOrNegNumber.    (17)
+
+	.  reduce 17 (src line 177)
+
+
+state 30
+	searchBase:  tSTRING tCOLON tLESS tEQUAL tPHRASE.    (21)
+
+	.  reduce 21 (src line 235)
+
+
+12 terminals, 7 nonterminals
+24 grammar rules, 31/8000 states
+0 shift/reduce, 0 reduce/reduce conflicts reported
+56 working sets used
+memory: parser 12/120000
+0 extra closures
+29 shift entries, 2 exceptions
+11 goto entries
+2 entries saved by goto default
+Optimizer space used: output 38/120000
+38 table entries, 0 zero
+maximum spread: 12, maximum offset: 24
