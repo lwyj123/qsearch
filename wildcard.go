@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package query
+package qsearch
 
 //var wildcardRegexpReplacer = strings.NewReplacer(
 //	// characters in the wildcard that must
